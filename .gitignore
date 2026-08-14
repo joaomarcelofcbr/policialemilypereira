@@ -1,0 +1,9 @@
+# Fotos originais em alta resolução (não usadas diretamente pelo site)
+Fotos/
+
+# Documentos internos de trabalho (estratégia, copy, revisões jurídicas, dados cadastrais)
+*.md
+*.pdf
+
+# Ferramentas internas do Claude Code
+.claude/
