@@ -211,12 +211,16 @@ h1, h2, h3 {
 .hero-inner {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
+  grid-template-areas:
+    "top photo"
+    "bottom photo";
   align-items: end;
   gap: 40px;
   padding-top: 64px;
 }
 
-.hero-text { padding-bottom: 64px; }
+.hero-text-top { grid-area: top; }
+.hero-text-bottom { grid-area: bottom; padding-bottom: 64px; }
 
 .hero h1 {
   font-size: clamp(2.4rem, 4.4vw, 3.6rem);
@@ -259,6 +263,7 @@ h1, h2, h3 {
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
 .hero-photo {
+  grid-area: photo;
   position: relative;
   align-self: end;
   max-width: 480px;
@@ -688,9 +693,26 @@ h1, h2, h3 {
 
 /* ---------- Responsivo ---------- */
 @media (max-width: 960px) {
-  .hero-inner { grid-template-columns: 1fr; padding-top: 40px; }
-  .hero-photo { max-width: 360px; order: -1; }
-  .hero-text { padding-bottom: 40px; }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas: "top" "photo" "bottom";
+    padding-top: 40px;
+  }
+  .hero-photo { max-width: 360px; position: relative; }
+  .hero-photo::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 8px;
+    background: linear-gradient(to bottom, #009B3A 50%, #FFDF00 50%);
+  }
+  .hero-text-top { text-align: center; }
+  .hero-text-bottom { padding-bottom: 40px; text-align: center; }
+  .hero-lead { margin-left: auto; margin-right: auto; }
+  .id-block { margin-left: auto; margin-right: auto; }
+  .hero-actions { justify-content: center; }
 
   .quem-inner { grid-template-columns: 1fr; }
   .quem-photo { max-width: 420px; margin: 0 auto; }
@@ -703,12 +725,14 @@ h1, h2, h3 {
 }
 
 @media (max-width: 960px) {
-  .header-inner { height: auto; min-height: 76px; padding: 12px 0; }
+  .header-inner { height: auto; min-height: 76px; padding: 12px 0; position: relative; justify-content: center; }
 
-  .logo { gap: 6px; flex-wrap: wrap; }
-  .logo-kicker { font-size: 0.62rem; flex-basis: 100%; }
+  .logo { gap: 6px; flex-wrap: wrap; justify-content: center; }
+  .logo-kicker { font-size: 0.62rem; flex-basis: 100%; text-align: center; }
   .logo-text { font-size: 1.15rem; white-space: nowrap; }
   .logo-number { font-size: 0.8rem; padding: 2px 7px; }
+
+  .nav-toggle { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); }
 
   .main-nav {
     display: none;
