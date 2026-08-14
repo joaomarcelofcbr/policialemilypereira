@@ -552,10 +552,16 @@ h1, h2, h3 {
 .politica li { color: var(--cinza-texto); margin-bottom: 8px; font-size: 0.98rem; }
 .politica a { color: var(--emily-blue); }
 
+.tabela-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 20px;
+}
+
 .tabela-cookies {
   width: 100%;
+  min-width: 480px;
   border-collapse: collapse;
-  margin-bottom: 20px;
   font-size: 0.88rem;
 }
 .tabela-cookies th, .tabela-cookies td {
@@ -696,11 +702,18 @@ h1, h2, h3 {
   .placar-item { border-left: none; border-top: 3px solid var(--emily-blue); padding-left: 0; padding-top: 10px; }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 960px) {
+  .header-inner { height: auto; min-height: 76px; padding: 12px 0; }
+
+  .logo { gap: 6px; flex-wrap: wrap; }
+  .logo-kicker { font-size: 0.62rem; flex-basis: 100%; }
+  .logo-text { font-size: 1.15rem; white-space: nowrap; }
+  .logo-number { font-size: 0.8rem; padding: 2px 7px; }
+
   .main-nav {
     display: none;
     position: absolute;
-    top: 76px;
+    top: 100%;
     left: 0;
     right: 0;
     background: var(--emily-blue);
@@ -711,4 +724,9 @@ h1, h2, h3 {
   .main-nav.open { display: flex; }
   .nav-toggle { display: flex; }
   .btn-nav { display: none; }
+}
+
+@media (max-width: 400px) {
+  .logo-kicker { display: none; }
+  .logo-text { font-size: 1rem; }
 }
