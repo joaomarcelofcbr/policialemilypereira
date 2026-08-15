@@ -69,6 +69,15 @@ h1, h2, h3 {
   color: var(--emily-pink);
 }
 
+@media (min-width: 961px) {
+  .nowrap { white-space: nowrap; }
+}
+
+.only-mobile-break { display: none; }
+@media (max-width: 960px) {
+  .only-mobile-break { display: inline; }
+}
+
 /* Reveal on scroll */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
@@ -143,25 +152,22 @@ h1, h2, h3 {
   color: var(--branco);
 }
 
-.logo-kicker {
-  font-family: var(--font-ui);
-  font-weight: 700;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.55);
-  align-self: center;
-}
-
 .logo-text {
   font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-size: 1.35rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.015em;
   color: var(--branco);
 }
 .logo-text em { color: var(--branco); font-style: normal; }
+
+.logo-flag {
+  width: 20px;
+  height: auto;
+  flex: none;
+  align-self: center;
+}
 
 .logo-number {
   font-family: var(--font-display);
@@ -210,7 +216,7 @@ h1, h2, h3 {
 
 .hero-inner {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1fr 1.05fr;
   grid-template-areas:
     "top photo"
     "bottom photo";
@@ -223,7 +229,7 @@ h1, h2, h3 {
 .hero-text-bottom { grid-area: bottom; padding-bottom: 64px; }
 
 .hero h1 {
-  font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
   margin: 16px 0 20px;
 }
 
@@ -266,7 +272,7 @@ h1, h2, h3 {
   grid-area: photo;
   position: relative;
   align-self: end;
-  max-width: 480px;
+  max-width: 580px;
   margin: 0 auto;
 }
 .hero-photo img {
@@ -294,6 +300,12 @@ h1, h2, h3 {
 }
 
 .quem-text p { color: var(--cinza-texto); margin-bottom: 16px; font-size: 1.02rem; }
+
+.quem-text p:not(.lead-serif):not(.tagline):not(.eyebrow) {
+  text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
+}
 
 .lead-serif {
   font-family: var(--font-serif);
@@ -442,7 +454,7 @@ h1, h2, h3 {
 
 .prova-inner {
   display: grid;
-  grid-template-columns: 0.5fr 1fr;
+  grid-template-columns: 0.68fr 1fr;
   gap: 48px;
   align-items: center;
 }
@@ -698,6 +710,7 @@ h1, h2, h3 {
     grid-template-areas: "top" "photo" "bottom";
     padding-top: 40px;
   }
+  .hero h1 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
   .hero-photo { max-width: 360px; position: relative; }
   .hero-photo::after {
     content: "";
@@ -720,7 +733,7 @@ h1, h2, h3 {
   .cards-bandeiras { grid-template-columns: 1fr; }
 
   .prova-inner { grid-template-columns: 1fr; text-align: center; }
-  .prova-photo { max-width: 280px; margin: 0 auto; }
+  .prova-photo { max-width: 320px; margin: 0 auto; }
   .placar-item { border-left: none; border-top: 3px solid var(--emily-blue); padding-left: 0; padding-top: 10px; }
 }
 
@@ -728,8 +741,8 @@ h1, h2, h3 {
   .header-inner { height: auto; min-height: 76px; padding: 12px 0; position: relative; justify-content: center; }
 
   .logo { gap: 6px; flex-wrap: wrap; justify-content: center; }
-  .logo-kicker { font-size: 0.62rem; flex-basis: 100%; text-align: center; }
-  .logo-text { font-size: 1.15rem; white-space: nowrap; }
+  .logo-text { font-size: 1.05rem; }
+  .logo-flag { width: 17px; }
   .logo-number { font-size: 0.8rem; padding: 2px 7px; }
 
   .nav-toggle { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); }
@@ -751,6 +764,6 @@ h1, h2, h3 {
 }
 
 @media (max-width: 400px) {
-  .logo-kicker { display: none; }
-  .logo-text { font-size: 1rem; }
+  .logo-text { font-size: 0.88rem; }
+  .logo-flag { width: 15px; }
 }
