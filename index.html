@@ -2,6 +2,26 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<script>
+// Google Consent Mode v2 — estado padrão negado até o visitante decidir no
+// banner de cookies (ver consent.js). Garante que tags configuradas dentro
+// do GTM (Google Ads, GA4, etc.) também respeitem a escolha do visitante.
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied'
+});
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PR95ZJXQ');</script>
+<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Policial Emily Pereira 44047 — Deputada Estadual por Santa Catarina</title>
 <meta name="description" content="Policial Emily Pereira, advogada, candidata a Deputada Estadual por Santa Catarina. Número 44047 — União Brasil.">
@@ -38,9 +58,19 @@
      Para ativar de verdade, só preencher gaId/metaPixelId no topo de consent.js com os IDs
      reais. Falta apenas a validação do advogado sobre o texto final de privacidade.html
      (política de privacidade) antes de publicar.
+  8. GOOGLE TAG MANAGER (GTM-PR95ZJXQ) — instalado em 20/08/2026, snippet padrão do Google
+     no <head> (com Consent Mode v2, estado padrão negado) e <noscript> logo após <body>.
+     O container em si carrega sempre (é só o "cofre" de tags), mas qualquer tag configurada
+     dentro do GTM (Google Ads, GA4 via GTM, etc.) só dispara de verdade depois que o
+     visitante aceitar no banner de cookies — ver applyConsent() em consent.js, que empurra
+     gtag('consent','update', ...) sincronizado com a escolha do visitante.
 -->
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PR95ZJXQ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <header class="site-header" id="topo">
   <div class="container header-inner">
@@ -318,17 +348,59 @@ revealEls.forEach(el => revealObserver.observe(el));
 // Tracking de cliques nos CTAs — pronto para receber Meta Pixel e GA4.
 // Só dispara de verdade depois que o visitante autorizar no banner de cookies
 // (ver consent.js) — até lá, gtag/fbq não existem e isto não faz nada.
+// Eventos-chave também disparam como evento PADRÃO de conversão em cada
+// plataforma (além do evento customizado), para otimização de anúncios,
+// públicos semelhantes e relatórios de conversão prontos.
+const STANDARD_EVENTS = {
+  whatsapp_group_join: { ga4: 'generate_lead', meta: 'Lead' }
+};
+
 document.querySelectorAll('[data-track]').forEach(function(el){
   el.addEventListener('click', function(){
     const eventName = el.getAttribute('data-track');
+    const std = STANDARD_EVENTS[eventName];
     if (typeof gtag === 'function') {
       gtag('event', eventName, { event_category: 'cta' });
+      if (std && std.ga4) gtag('event', std.ga4, { event_category: 'conversion' });
     }
     if (typeof fbq === 'function') {
       fbq('trackCustom', eventName);
+      if (std && std.meta) fbq('track', std.meta);
     }
   });
 });
+
+// Profundidade de rolagem — marcos de 25/50/75/100%, um disparo por marco
+// por carregamento de página. Dá visão de engajamento mesmo em quem não
+// clica em nenhum CTA (quantos leem até "Por que agora", até o rodapé etc.).
+(function () {
+  const marks = [25, 50, 75, 100];
+  const fired = {};
+  function checkScroll() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight <= 0) return;
+    const pct = Math.round((scrollTop / docHeight) * 100);
+    marks.forEach(function (m) {
+      if (pct >= m && !fired[m]) {
+        fired[m] = true;
+        if (typeof gtag === 'function') {
+          gtag('event', 'scroll_depth', { event_category: 'engagement', value: m });
+        }
+        if (typeof fbq === 'function') {
+          fbq('trackCustom', 'scroll_depth_' + m);
+        }
+      }
+    });
+  }
+  let ticking = false;
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      window.requestAnimationFrame(function () { checkScroll(); ticking = false; });
+      ticking = true;
+    }
+  }, { passive: true });
+})();
 
 // Reabrir preferências de cookies a partir do rodapé, a qualquer momento.
 const abrirPrefsBtn = document.getElementById('abrirPrefsCookies');

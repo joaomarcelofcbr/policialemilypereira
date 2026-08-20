@@ -80,6 +80,17 @@ function loadMetaPixel() {
 
 function applyConsent(consent) {
   if (!consent) return;
+  // Sincroniza com o Google Consent Mode (gtag definido no <head> do index.html,
+  // antes do GTM) — assim tags configuradas dentro do próprio GTM também
+  // respeitam a escolha do visitante, não só o GA4/Meta Pixel carregados aqui.
+  if (typeof gtag === 'function') {
+    gtag('consent', 'update', {
+      'analytics_storage': consent.analytics ? 'granted' : 'denied',
+      'ad_storage': consent.marketing ? 'granted' : 'denied',
+      'ad_user_data': consent.marketing ? 'granted' : 'denied',
+      'ad_personalization': consent.marketing ? 'granted' : 'denied'
+    });
+  }
   if (consent.analytics) loadGA4();
   if (consent.marketing) loadMetaPixel();
 }
