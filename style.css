@@ -697,6 +697,7 @@ h1, h2, h3 {
 .cookie-modal[hidden] { display: none; }
 
 .cookie-modal-box {
+  position: relative;
   background: var(--branco);
   border-radius: 8px;
   max-width: 480px;
@@ -704,6 +705,20 @@ h1, h2, h3 {
   padding: 32px;
   box-shadow: 0 24px 60px rgba(0,0,0,0.3);
 }
+
+.cookie-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--cinza-texto);
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.cookie-modal-close:hover { color: var(--grafite); }
 
 .cookie-modal-box h3 {
   font-family: var(--font-display);

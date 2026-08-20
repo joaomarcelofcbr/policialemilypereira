@@ -98,6 +98,36 @@ function applyConsent(consent) {
 function initCookieBanner() {
   const banner = document.getElementById('cookieBanner');
   const modal = document.getElementById('cookiePrefs');
+
+  const btnPersonalizar = document.getElementById('cookiePersonalizar');
+  const btnSalvarPrefs = document.getElementById('cookieSalvarPrefs');
+  const btnFecharPrefs = document.getElementById('cookiePrefsClose');
+  const chkAnalytics = document.getElementById('cookieChkAnalytics');
+  const chkMarketing = document.getElementById('cookieChkMarketing');
+
+  function closeModal() {
+    if (modal) modal.hidden = true;
+  }
+
+  // O modal de preferências pode ser reaberto a qualquer momento pelo link no
+  // rodapé (ver index.html), mesmo muito depois da primeira decisão — por
+  // isso os controles dele (salvar/fechar) são ligados sempre, sem depender
+  // de o visitante ainda não ter escolhido nada (era esse o bug: quando já
+  // existia consentimento salvo, a função saía cedo e "Salvar preferências"
+  // ficava sem nenhum listener — o modal abria e não tinha como fechar).
+  if (btnSalvarPrefs) btnSalvarPrefs.addEventListener('click', function () {
+    applyConsent(setConsent(chkAnalytics && chkAnalytics.checked, chkMarketing && chkMarketing.checked));
+    if (banner) banner.hidden = true;
+    closeModal();
+  });
+  if (btnFecharPrefs) btnFecharPrefs.addEventListener('click', closeModal);
+  if (modal) modal.addEventListener('click', function (e) {
+    if (e.target === modal) closeModal(); // clique no fundo escuro, fora da caixa
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal && !modal.hidden) closeModal();
+  });
+
   if (!banner) return;
 
   const existing = getConsent();
@@ -110,15 +140,11 @@ function initCookieBanner() {
 
   const btnAceitar = document.getElementById('cookieAceitar');
   const btnRejeitar = document.getElementById('cookieRejeitar');
-  const btnPersonalizar = document.getElementById('cookiePersonalizar');
-  const btnSalvarPrefs = document.getElementById('cookieSalvarPrefs');
-  const chkAnalytics = document.getElementById('cookieChkAnalytics');
-  const chkMarketing = document.getElementById('cookieChkMarketing');
 
   function finish(consent) {
     applyConsent(consent);
     banner.hidden = true;
-    if (modal) modal.hidden = true;
+    closeModal();
   }
 
   if (btnAceitar) btnAceitar.addEventListener('click', function () {
@@ -131,10 +157,6 @@ function initCookieBanner() {
 
   if (btnPersonalizar && modal) btnPersonalizar.addEventListener('click', function () {
     modal.hidden = false;
-  });
-
-  if (btnSalvarPrefs) btnSalvarPrefs.addEventListener('click', function () {
-    finish(setConsent(chkAnalytics && chkAnalytics.checked, chkMarketing && chkMarketing.checked));
   });
 }
 
