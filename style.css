@@ -477,6 +477,31 @@ h1, h2, h3 {
 }
 .placar-item span { color: var(--cinza-texto); font-size: 0.92rem; }
 
+/* ---------- Grupo WhatsApp ---------- */
+.whatsapp-cta { padding: 88px 0; background: var(--branco); text-align: center; }
+
+.whatsapp-inner { max-width: 640px; margin: 0 auto; }
+
+.whatsapp-image {
+  max-width: 300px;
+  margin: 0 auto 12px;
+}
+.whatsapp-image img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 16px 24px rgba(0,0,0,0.18));
+}
+
+.whatsapp-cta .section-title-center { margin-bottom: 16px; }
+
+.whatsapp-lead {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--cinza-texto);
+  max-width: 52ch;
+  margin: 16px auto 28px;
+}
+
 /* ---------- CTA final ---------- */
 .cta-final {
   position: relative;
