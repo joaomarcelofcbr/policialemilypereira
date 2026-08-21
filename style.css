@@ -390,6 +390,12 @@ h1, h2, h3 {
   font-style: italic;
   margin-top: -8px !important;
 }
+.fonte-cite a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(138,138,138,0.5);
+}
+.fonte-cite a:hover { color: var(--emily-blue); }
 .card-bandeira-content ul { margin: 0 0 14px 18px; }
 .card-bandeira-content li {
   color: var(--cinza-texto);
