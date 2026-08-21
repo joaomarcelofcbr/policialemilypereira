@@ -378,10 +378,17 @@ h1, h2, h3 {
 }
 
 .card-bandeira-content p { color: var(--cinza-texto); font-size: 0.94rem; margin-bottom: 14px; }
-.card-bandeira-content p:not(.card-gancho):not(.card-stat):not(.card-defendo) {
+.card-bandeira-content p:not(.card-gancho):not(.card-stat):not(.card-defendo):not(.fonte-cite) {
   text-align: justify;
   text-align-last: left;
   hyphens: auto;
+}
+
+.fonte-cite {
+  font-size: 0.75rem !important;
+  color: #8a8a8a;
+  font-style: italic;
+  margin-top: -8px !important;
 }
 .card-bandeira-content ul { margin: 0 0 14px 18px; }
 .card-bandeira-content li {
