@@ -383,21 +383,26 @@ h1, h2, h3 {
 }
 
 .card-bandeira-content p { color: var(--cinza-texto); font-size: 0.94rem; margin-bottom: 14px; }
+.card-bandeira-content p:not(.card-gancho):not(.card-stat):not(.card-defendo) {
+  text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
+}
 .card-bandeira-content ul { margin: 0 0 14px 18px; }
-.card-bandeira-content li { color: var(--cinza-texto); font-size: 0.94rem; margin-bottom: 8px; }
+.card-bandeira-content li {
+  color: var(--cinza-texto);
+  font-size: 0.94rem;
+  margin-bottom: 8px;
+  text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
+}
 
 .card-stat {
   background: var(--cinza-claro);
   padding: 12px 14px;
   border-radius: 4px;
   font-size: 0.86rem !important;
-}
-
-.fonte-pendente {
-  font-size: 0.75rem;
-  color: #a0522d;
-  font-style: normal;
-  font-weight: 600;
 }
 
 .card-defendo {
